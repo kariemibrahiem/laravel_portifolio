@@ -3,15 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
-use App\Models\Bot;
-use App\Models\Order;
-use App\Models\Symbol;
-use App\Models\TradingAccount;
+
 use App\Models\User;
 use App\Models\UserMail;
-use App\Models\UserTransaction;
-use App\Models\Wallet;
-use App\Models\WalletLog;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 

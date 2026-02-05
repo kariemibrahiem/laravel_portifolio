@@ -3647,4 +3647,9 @@ Stack Trace:
   'Select All Permissions' => 'Select All Permissions',
   'Select All Roles' => 'Select All Roles',
   'Select Role' => 'Select Role',
+  'Teams' => 'Teams',
+  'Project Budget' => 'Project Budget',
+  'Start AI' => 'Start AI',
+  'help you' => 'Help You',
+  'How AI assist will' => 'How AI Assist Will',
 );
