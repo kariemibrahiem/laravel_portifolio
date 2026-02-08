@@ -48,6 +48,8 @@ use App\Http\Controllers\Admin\tables\Basic as TablesBasic;
 use App\Http\Controllers\Admin\UserController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
+// (No public homepage added here; frontend routes live in routes/front.php)
+
 // Main Page Route
 
 
@@ -61,116 +63,134 @@ Route::post("verify-otp", [ForgotPasswordController::class, 'CheckOtp'])->name("
 
 
 
-Route::group(['prefix' => LaravelLocalization::setLocale()], function(){
+Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
 
-Route::group(["middleware" => "auth:admin"], function(){
-    Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
-    Route::get('change_language/{id}', [SettingController::class, 'changeLanguage'])->name('change_language');
-    Route::post('/user/updateColumnSelected', [UserController::class, 'updateColumnSelected'])->name('users.updateColumnSelected');
-    Route::resource("users" , UserController::class);
+    Route::group(["middleware" => "auth:admin"], function () {
+        Route::get('/admin', [Analytics::class, 'index'])->name('dashboard-analytics');
+        Route::get('change_language/{id}', [SettingController::class, 'changeLanguage'])->name('change_language');
+        Route::post('/user/updateColumnSelected', [UserController::class, 'updateColumnSelected'])->name('users.updateColumnSelected');
+        Route::resource("users", UserController::class);
 
 
-    Route::get('/admins/profile', [\App\Http\Controllers\Admin\AdminController::class, 'profile'])->name('admins.profile');
-    Route::resource('admins', \App\Http\Controllers\Admin\AdminController::class);
-    Route::post('/admins/updateColumnSelected', [\App\Http\Controllers\Admin\AdminController::class, 'updateColumnSelected'])->name('admins.updateColumnSelected');
-    Route::post('/admins/destroySelected', [\App\Http\Controllers\Admin\AdminController::class, 'deleteSelected'])->name('admins.destroySelected');
+        Route::get('/admins/profile', [\App\Http\Controllers\Admin\AdminController::class, 'profile'])->name('admins.profile');
+        Route::resource('admins', \App\Http\Controllers\Admin\AdminController::class);
+        Route::post('/admins/updateColumnSelected', [\App\Http\Controllers\Admin\AdminController::class, 'updateColumnSelected'])->name('admins.updateColumnSelected');
+        Route::post('/admins/destroySelected', [\App\Http\Controllers\Admin\AdminController::class, 'deleteSelected'])->name('admins.destroySelected');
 
 
-    Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
-    Route::post('/users/updateColumnSelected', [\App\Http\Controllers\Admin\UserController::class, 'updateColumnSelected'])
-        ->name('users.updateColumnSelected');
+        Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
+        Route::post('/users/updateColumnSelected', [\App\Http\Controllers\Admin\UserController::class, 'updateColumnSelected'])
+            ->name('users.updateColumnSelected');
         Route::post('/users/destroySelected', [\App\Http\Controllers\Admin\UserController::class, 'deleteSelected'])
-        ->name('users.destroySelected');
+            ->name('users.destroySelected');
 
-    Route::resource('Role', \App\Http\Controllers\Admin\RoleController::class);
-    Route::post('/Role/updateColumnSelected', [\App\Http\Controllers\Admin\RoleController::class, 'updateColumnSelected'])
-        ->name('Role.updateColumnSelected');
-    Route::post('/Role/destroySelected', [\App\Http\Controllers\Admin\RoleController::class, 'destroySelected'])
-        ->name('Role.destroySelected');
+        Route::resource('Role', \App\Http\Controllers\Admin\RoleController::class);
+        Route::post('/Role/updateColumnSelected', [\App\Http\Controllers\Admin\RoleController::class, 'updateColumnSelected'])
+            ->name('Role.updateColumnSelected');
+        Route::post('/Role/destroySelected', [\App\Http\Controllers\Admin\RoleController::class, 'destroySelected'])
+            ->name('Role.destroySelected');
 
 
+
+        Route::resource('partnerss', \App\Http\Controllers\Admin\PartnersController::class);
+        Route::post('/partnerss/updateColumnSelected', [\App\Http\Controllers\Admin\PartnersController::class, 'updateColumnSelected'])
+            ->name('partnerss.updateColumnSelected');
+        Route::post('/partnerss/destroySelected', [\App\Http\Controllers\Admin\PartnersController::class, 'destroySelected'])
+            ->name('partnerss.destroySelected');
+
+        Route::resource('collaborations', \App\Http\Controllers\Admin\CollaborationController::class);
+        Route::post('/collaborations/updateColumnSelected', [\App\Http\Controllers\Admin\CollaborationController::class, 'updateColumnSelected'])
+            ->name('collaborations.updateColumnSelected');
+        Route::post('/collaborations/destroySelected', [\App\Http\Controllers\Admin\CollaborationController::class, 'destroySelected'])
+            ->name('collaborations.destroySelected');
+
+        Route::resource('projects', \App\Http\Controllers\Admin\ProjectController::class);
+        Route::post('/projects/updateColumnSelected', [\App\Http\Controllers\Admin\ProjectController::class, 'updateColumnSelected'])
+            ->name('projects.updateColumnSelected');
+        Route::post('/projects/destroySelected', [\App\Http\Controllers\Admin\ProjectController::class, 'destroySelected'])
+            ->name('projects.destroySelected');
+
+
+        Route::resource('settings', \App\Http\Controllers\Admin\SettingController::class);
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // layout
+    Route::get('/layouts/without-menu', [WithoutMenu::class, 'index'])->name('layouts-without-menu');
+    Route::get('/layouts/without-navbar', [WithoutNavbar::class, 'index'])->name('layouts-without-navbar');
+    Route::get('/layouts/fluid', [Fluid::class, 'index'])->name('layouts-fluid');
+    Route::get('/layouts/container', [Container::class, 'index'])->name('layouts-container');
+    Route::get('/layouts/blank', [Blank::class, 'index'])->name('layouts-blank');
+
+    // pages
+    Route::get('/pages/account-settings-account', [AccountSettingsAccount::class, 'index'])->name('pages-account-settings-account');
+    Route::get('/pages/account-settings-notifications', [AccountSettingsNotifications::class, 'index'])->name('pages-account-settings-notifications');
+    Route::get('/pages/account-settings-connections', [AccountSettingsConnections::class, 'index'])->name('pages-account-settings-connections');
+    Route::get('/pages/misc-error', [MiscError::class, 'index'])->name('pages-misc-error');
+    Route::get('/pages/misc-under-maintenance', [MiscUnderMaintenance::class, 'index'])->name('pages-misc-under-maintenance');
+
+    // authentication
+    Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('auth-login-basic');
+    Route::get("admin.logout", [LoginBasic::class, "logout"])->name("admin.logout");
+    Route::post('/auth/login', [LoginBasic::class, 'login'])->name('login');
+    Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('auth-register-basic');
+    Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password-basic');
+
+    // cards
+    Route::get('/cards/basic', [CardBasic::class, 'index'])->name('cards-basic');
+
+    // User Interface
+    Route::get('/ui/accordion', [Accordion::class, 'index'])->name('ui-accordion');
+    Route::get('/ui/alerts', [Alerts::class, 'index'])->name('ui-alerts');
+    Route::get('/ui/badges', [Badges::class, 'index'])->name('ui-badges');
+    Route::get('/ui/buttons', [Buttons::class, 'index'])->name('ui-buttons');
+    Route::get('/ui/carousel', [Carousel::class, 'index'])->name('ui-carousel');
+    Route::get('/ui/collapse', [Collapse::class, 'index'])->name('ui-collapse');
+    Route::get('/ui/dropdowns', [Dropdowns::class, 'index'])->name('ui-dropdowns');
+    Route::get('/ui/footer', [Footer::class, 'index'])->name('ui-footer');
+    Route::get('/ui/list-groups', [ListGroups::class, 'index'])->name('ui-list-groups');
+    Route::get('/ui/modals', [Modals::class, 'index'])->name('ui-modals');
+    Route::get('/ui/navbar', [Navbar::class, 'index'])->name('ui-navbar');
+    Route::get('/ui/offcanvas', [Offcanvas::class, 'index'])->name('ui-offcanvas');
+    Route::get('/ui/pagination-breadcrumbs', [PaginationBreadcrumbs::class, 'index'])->name('ui-pagination-breadcrumbs');
+    Route::get('/ui/progress', [Progress::class, 'index'])->name('ui-progress');
+    Route::get('/ui/spinners', [Spinners::class, 'index'])->name('ui-spinners');
+    Route::get('/ui/tabs-pills', [TabsPills::class, 'index'])->name('ui-tabs-pills');
+    Route::get('/ui/toasts', [Toasts::class, 'index'])->name('ui-toasts');
+    Route::get('/ui/tooltips-popovers', [TooltipsPopovers::class, 'index'])->name('ui-tooltips-popovers');
+    Route::get('/ui/typography', [Typography::class, 'index'])->name('ui-typography');
+
+    // extended ui
+    Route::get('/extended/ui-perfect-scrollbar', [PerfectScrollbar::class, 'index'])->name('extended-ui-perfect-scrollbar');
+    Route::get('/extended/ui-text-divider', [TextDivider::class, 'index'])->name('extended-ui-text-divider');
+
+    // icons
+    Route::get('/icons/boxicons', [Boxicons::class, 'index'])->name('icons-boxicons');
+
+    // form elements
+    Route::get('/forms/basic-inputs', [BasicInput::class, 'index'])->name('forms-basic-inputs');
+    Route::get('/forms/input-groups', [InputGroups::class, 'index'])->name('forms-input-groups');
+
+    // form layouts
+    Route::get('/form/layouts-vertical', [VerticalForm::class, 'index'])->name('form-layouts-vertical');
+    Route::get('/form/layouts-horizontal', [HorizontalForm::class, 'index'])->name('form-layouts-horizontal');
+
+    // tables
+    Route::get('/tables/basic', [TablesBasic::class, 'index'])->name('tables-basic');
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// layout
-Route::get('/layouts/without-menu', [WithoutMenu::class, 'index'])->name('layouts-without-menu');
-Route::get('/layouts/without-navbar', [WithoutNavbar::class, 'index'])->name('layouts-without-navbar');
-Route::get('/layouts/fluid', [Fluid::class, 'index'])->name('layouts-fluid');
-Route::get('/layouts/container', [Container::class, 'index'])->name('layouts-container');
-Route::get('/layouts/blank', [Blank::class, 'index'])->name('layouts-blank');
-
-// pages
-Route::get('/pages/account-settings-account', [AccountSettingsAccount::class, 'index'])->name('pages-account-settings-account');
-Route::get('/pages/account-settings-notifications', [AccountSettingsNotifications::class, 'index'])->name('pages-account-settings-notifications');
-Route::get('/pages/account-settings-connections', [AccountSettingsConnections::class, 'index'])->name('pages-account-settings-connections');
-Route::get('/pages/misc-error', [MiscError::class, 'index'])->name('pages-misc-error');
-Route::get('/pages/misc-under-maintenance', [MiscUnderMaintenance::class, 'index'])->name('pages-misc-under-maintenance');
-
-// authentication
-Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('auth-login-basic');
-Route::get("admin.logout" , [LoginBasic::class , "logout"])->name("admin.logout");
-Route::post('/auth/login', [LoginBasic::class, 'login'])->name('login');
-Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('auth-register-basic');
-Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password-basic');
-
-// cards
-Route::get('/cards/basic', [CardBasic::class, 'index'])->name('cards-basic');
-
-// User Interface
-Route::get('/ui/accordion', [Accordion::class, 'index'])->name('ui-accordion');
-Route::get('/ui/alerts', [Alerts::class, 'index'])->name('ui-alerts');
-Route::get('/ui/badges', [Badges::class, 'index'])->name('ui-badges');
-Route::get('/ui/buttons', [Buttons::class, 'index'])->name('ui-buttons');
-Route::get('/ui/carousel', [Carousel::class, 'index'])->name('ui-carousel');
-Route::get('/ui/collapse', [Collapse::class, 'index'])->name('ui-collapse');
-Route::get('/ui/dropdowns', [Dropdowns::class, 'index'])->name('ui-dropdowns');
-Route::get('/ui/footer', [Footer::class, 'index'])->name('ui-footer');
-Route::get('/ui/list-groups', [ListGroups::class, 'index'])->name('ui-list-groups');
-Route::get('/ui/modals', [Modals::class, 'index'])->name('ui-modals');
-Route::get('/ui/navbar', [Navbar::class, 'index'])->name('ui-navbar');
-Route::get('/ui/offcanvas', [Offcanvas::class, 'index'])->name('ui-offcanvas');
-Route::get('/ui/pagination-breadcrumbs', [PaginationBreadcrumbs::class, 'index'])->name('ui-pagination-breadcrumbs');
-Route::get('/ui/progress', [Progress::class, 'index'])->name('ui-progress');
-Route::get('/ui/spinners', [Spinners::class, 'index'])->name('ui-spinners');
-Route::get('/ui/tabs-pills', [TabsPills::class, 'index'])->name('ui-tabs-pills');
-Route::get('/ui/toasts', [Toasts::class, 'index'])->name('ui-toasts');
-Route::get('/ui/tooltips-popovers', [TooltipsPopovers::class, 'index'])->name('ui-tooltips-popovers');
-Route::get('/ui/typography', [Typography::class, 'index'])->name('ui-typography');
-
-// extended ui
-Route::get('/extended/ui-perfect-scrollbar', [PerfectScrollbar::class, 'index'])->name('extended-ui-perfect-scrollbar');
-Route::get('/extended/ui-text-divider', [TextDivider::class, 'index'])->name('extended-ui-text-divider');
-
-// icons
-Route::get('/icons/boxicons', [Boxicons::class, 'index'])->name('icons-boxicons');
-
-// form elements
-Route::get('/forms/basic-inputs', [BasicInput::class, 'index'])->name('forms-basic-inputs');
-Route::get('/forms/input-groups', [InputGroups::class, 'index'])->name('forms-input-groups');
-
-// form layouts
-Route::get('/form/layouts-vertical', [VerticalForm::class, 'index'])->name('form-layouts-vertical');
-Route::get('/form/layouts-horizontal', [HorizontalForm::class, 'index'])->name('form-layouts-horizontal');
-
-// tables
-Route::get('/tables/basic', [TablesBasic::class, 'index'])->name('tables-basic');
-
-
-});
-

@@ -9,6 +9,12 @@ enum PermissionEnums: string
     case Permission = 'permission';
     case ADMINs = "admins";
     case USERs = "users";
+    case PARTNERSs = "partnerss";
+    case COLLABORATIONs = "collaborations";
+    case PROJECTs = "projects";
+
+
+
 
 
 
