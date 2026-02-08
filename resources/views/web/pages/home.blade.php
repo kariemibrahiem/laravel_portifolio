@@ -105,40 +105,25 @@
                         <h2 class="text-center">{{ trns('Experience') }}</h2>
                         <div class="mb-5 heading-border"></div>
                     </div>
+                    @foreach($experiences as $experience)
                     <div class="resume-item col-md-6 col-sm-12 ">
                         <div class="card mx-0 p-4 mb-5"
-                            style="border-color: #17a2b8; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.21);">
+                            style="border-color: {{ $experience->border_color }}; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.21);">
                             <div class=" resume-content mr-auto">
-                                <h4 class="mb-3"><i class="fa fa-globe mr-3 text-info"></i>
-                                    {{ trns('junior Back-end laravel developer') }}</h4>
+                                <h4 class="mb-3"><i class="fa {{ $experience->icon_class }} mr-3 text-info"></i>
+                                    {{ trns($experience->title) }}</h4>
                                 <p>
-                                    {{ trns('As a Back-end Developer at Phelera Company, my first professional role, I was responsible for developing and maintaining dashboards and web applications using the Laravel framework. I collaborated closely with senior developers, gained hands-on experience with best practices, resolved bugs, implemented new features, and consistently delivered assigned tasks within project deadlines.') }}
+                                    {{ trns($experience->description) }}
                                 </p>
 
 
                             </div>
                             <div class="resume-date text-md-right">
-                                <span class="text-primary">{{ trns('Sep 2024 - march 2025') }}</span>
+                                <span class="text-primary">{{ trns($experience->start_date . ' - ' . $experience->end_date) }}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="resume-item col-md-6 col-sm-12">
-                        <div class="card mx-0 p-4 mb-5"
-                            style="border-color: #ffc107; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.21);">
-                            <div class="resume-content mr-auto">
-                                <h4 class="mb-3"><i class="fa fa-laptop mr-3 text-warning"></i>
-                                    {{ trns(' Back-end laravel developer') }}</h4>
-                                <p>
-                                    {{ trns('As a mid-level back-end Laravel developer, I am responsible for designing, developing, and maintaining scalable systems, dashboards, and web applications, building and maintaining RESTful APIs, integrating and consuming internal and external APIs, implementing authentication and authorization systems, optimizing application performance, and ensuring clean and secure code architecture, collaborating with cross-functional teams, working with Odoo on the front-end side to customize views, templates, and user interfaces, handling data synchronization between Odoo and Laravel systems, designing, maintaining, and optimizing databases, writing efficient queries and migrations, managing server setup and deployment, configuring environments, uploading and maintaining projects on servers, monitoring system performance, and ensuring application stability and reliability.') }}
-                                </p>
-
-
-                            </div>
-                            <div class="resume-date text-md-right">
-                                <span class="text-primary">nov 2025 - present </span>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
 
                 </div>
             </section>
@@ -162,98 +147,18 @@
                     </div>
                 </div>
                 <div class="row my-auto">
-                    <div class="col-sm-4 portfolio-item filter consulting">
-                        <a class="portfolio-link" href="https://demo.edarat365.com/admin/login" target="_blank">
+                    @foreach($portfolios as $portfolio)
+                    <div class="col-sm-4 portfolio-item filter {{ $portfolio->category }}">
+                        <a class="portfolio-link" href="{{ $portfolio->url }}" target="_blank">
                             <div class="caption-port">
                                 <div class="caption-port-content" style="font-size: 13px;">
-                                    {{ trns(' edarat is full realstate management system for pixel mart saudi company full designed and build with laravel .') }}
+                                    {{ trns($portfolio->description) }}
                                 </div>
                             </div>
-                            <img class="img-fluid" src="{{ asset('web/img/projects/edarat.png') }}" alt="">
+                            <img class="img-fluid" src="{{ asset($portfolio->image) }}" alt="{{ $portfolio->title }}">
                         </a>
                     </div>
-                    <div class="col-sm-4 portfolio-item filter finance">
-                        <a class="portfolio-link" href="https://trvlgate.com/en" target="_blank">
-                            <div class="caption-port">
-                                <div class="caption-port-content" style="font-size: 13px;">
-                                    {{ trns('travel  is a travel agency website that provides a wide range of travel services, including  hotel reservations, and tour packages, offering users a convenient platform to all services and book their travel arrangements.') }}
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="{{ asset('web/img/projects/travel.png') }}" alt="">
-                        </a>
-                    </div>
-                    <div class="col-sm-4 portfolio-item filter marketing">
-                        <a class="portfolio-link" href="https://mawhebtac.com" target="_blank">
-                            <div class="caption-port">
-                                <div class="caption-port-content" style="font-size: 13px;">
-                                    {{ trns('Mawhebtac is a comprehensive talent acquisition and management platform designed to streamline the recruitment process for businesses. It offers a range of features including talent posting, candidate sourcing, applicant tracking, and analytics to help companies efficiently find and manage top talent.') }}
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="{{ asset('web/img/projects/mawhebtac.png') }}" alt="">
-                        </a>
-                    </div>
-                    <div class="col-sm-4 portfolio-item filter consulting">
-                        <a class="portfolio-link" href="https://elmazon.com" target="_blank">
-                            <div class="caption-port">
-                                <div class="caption-port-content" style="font-size: 13px;">
-                                    {{ trns('Elmazon is full LMS system connect teacher with all student and manege the learning process.') }}
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="{{ asset('web/img/projects/elmazon.png') }}" alt="">
-                        </a>
-                    </div>
-                    <div class="col-sm-4 portfolio-item filter consulting">
-                        <a class="portfolio-link" href="https://crm.clinizone.net/" target="_blank">
-                            <div class="caption-port">
-                                <div class="caption-port-content" style="font-size: 13px;">
-                                    {{ trns('Clinizone CRM is a customer relationship management system designed specifically for healthcare providers, offering features such as patient management, appointment scheduling, and communication tools to enhance patient care and streamline administrative tasks.') }}
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="{{ asset('web/img/projects/clinizone.png') }}" alt="">
-                        </a>
-                    </div>
-
-                    <div class="col-sm-4 portfolio-item filter finance">
-                        <a class="portfolio-link" href="https://atabe.com" target="_blank">
-                            <div class="caption-port">
-                                <div class="caption-port-content" style="font-size: 13px;">
-                                    {{ trns('Atabe is a platform to provide direct relation between lawyers and customers and handle all court cases steps and processes.') }}
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="{{ asset('web/img/projects/atabe.png') }}" alt="">
-                        </a>
-                    </div>
-                    <div class="col-sm-4 portfolio-item filter marketing">
-                        <a class="portfolio-link" href="https://hubsparepart.com" target="_blank">
-                            <div class="caption-port">
-                                <div class="caption-port-content" style="font-size: 13px;">
-                                    {{ trns('Hub Spare Part is an e-commerce platform that specializes in providing a wide range of spare parts for various industries, offering customers a convenient and reliable online shopping experience for their spare part needs.') }}
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="{{ asset('web/img/projects/hubsparepart.png') }}"
-                                alt="">
-                        </a>
-                    </div>
-                    <div class="col-sm-4 portfolio-item filter marketing">
-                        <a class="portfolio-link" href="https://zakat.topbusiness.io/admin" target="_blank">
-                            <div class="caption-port">
-                                <div class="caption-port-content" style="font-size: 13px;">
-                                    {{ trns('Zakat is a comprehensive zakat management system designed to facilitate the calculation, collection, and distribution of zakat funds in accordance with Islamic principles, providing users with a convenient platform to fulfill their zakat obligations and contribute to charitable causes.') }}
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="{{ asset('web/img/projects/zakar.png') }}" alt="">
-                        </a>
-                    </div>
-                    <div class="col-sm-4 portfolio-item filter finance">
-                        <a class="portfolio-link" href="https://esoiegypt.cloud/" target="_blank">
-                            <div class="caption-port">
-                                <div class="caption-port-content" style="font-size: 13px;">
-                                    {{ trns('ESOIEgypt is a comprehensive educational platform  build on Rocket LMS system that provides a wide range of online courses, resources, and tools to support students and educators in Egypt, fostering accessible and quality education for all.') }}
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="{{ asset('web/img/projects/esoi.png') }}" alt="">
-                        </a>
-                    </div>
+                    @endforeach
                 </div>
             </section>
 
@@ -262,59 +167,19 @@
                 <div class="p-lg-5 p-3 skill-cover">
                     <h3 class="text-center text-white">Coding Skills</h3>
                     <div class="row text-center my-auto ">
+                        @foreach($skills as $skill)
                         <div class="col-md-3 col-sm-6">
                             <div class="skill-item">
-                                <img src="{{ asset('web/img/skills/php.png') }}" alt=""
-                                    style="width: 80px; height: 80px;">
-                                <p>php</p>
+                                @if($skill->icon_type === 'image')
+                                    <img src="{{ asset($skill->icon_value) }}" alt="{{ $skill->name }}"
+                                        style="width: 80px; height: 80px;">
+                                @else
+                                    <i class="{{ $skill->icon_value }} fa-5x"></i>
+                                @endif
+                                <p>{{ $skill->name }}</p>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="skill-item">
-                                <img src="{{ asset('web/img/skills/laravel.png') }}" alt=""
-                                    style="width: 80px; height: 80px;">
-                                <p>laravel</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="skill-item">
-                                <img src="{{ asset('web/img/skills/sql.png') }}" alt=""
-                                    style="width: 80px; height: 80px;">
-                                <p>sql</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="skill-item">
-                                <img src="{{ asset('web/img/skills/javascript.png') }}" alt=""
-                                    style="width: 80px; height: 80px;">
-                                <p>javascript</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="skill-item">
-                                <i class="fa fa-html5 fa-5x"></i>
-                                <p>HTML5</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="skill-item">
-                                <i class="fa fa-css3 fa-5x"></i>
-                                <p>CSS3</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="skill-item">
-                                <i class="fa fa-code fa-5x"></i>
-                                <p>JQuery</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="skill-item">
-                                <img src="{{ asset('web/img/skills/bootstrap.png') }}" alt=""
-                                    style="width: 80px; height: 80px;">
-                                <p>bootstrap</p>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </section>
@@ -327,50 +192,19 @@
                         <div class="mb-5 heading-border"></div>
                     </div>
                     <div class="main-award" id="award-box">
+                        @foreach($techs as $tech)
                         <div class="award">
                             <div class="award-icon"></div>
                             <div class="award-content">
-                                <h5 class="title">github</h5>
-
-                            </div>
-                        </div>
-                        <div class="award">
-                            <div class="award-icon"></div>
-                            <div class="award-content">
-                                <h5 class="title">payment</h5>
+                                <h5 class="title">{{ $tech->title }}</h5>
+                                @if($tech->description)
                                 <p class="description">
-                                    pyement with many payment gateways like hyperpay, tap, paymob, and more. and can handle
-                                    good with any payment process and handle all the steps of it with good performance and
-                                    security.
+                                    {{ $tech->description }}
                                 </p>
+                                @endif
                             </div>
                         </div>
-                        <div class="award">
-                            <div class="award-icon"></div>
-                            <div class="award-content">
-                                <h5 class="title">CI/CD</h5>
-
-                            </div>
-                        </div>
-                        <div class="award">
-                            <div class="award-icon"></div>
-                            <div class="award-content">
-                                <h5 class="title">testing</h5>
-                            </div>
-                        </div>
-                        <div class="award">
-                            <div class="award-icon"></div>
-                            <div class="award-content">
-                                <h5 class="title">HMVC</h5>
-
-                            </div>
-                        </div>
-                        <div class="award">
-                            <div class="award-icon"></div>
-                            <div class="award-content">
-                                <h5 class="title">React</h5>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </section>

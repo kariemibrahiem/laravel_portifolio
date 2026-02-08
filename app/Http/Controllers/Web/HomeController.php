@@ -3,18 +3,30 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Experience;
+use App\Models\Portfolio;
+use App\Models\Skill;
+use App\Models\Tech;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        // Serve the converted profile template home page
-        return view('web.pages.home');
+        $experiences = Experience::orderBy('sort_order')->get();
+        $portfolios = Portfolio::orderBy('sort_order')->get();
+        $skills = Skill::orderBy('sort_order')->get();
+        $techs = Tech::orderBy('sort_order')->get();
+
+        return view('web.pages.home', [
+            'experiences' => $experiences,
+            'portfolios' => $portfolios,
+            'skills' => $skills,
+            'techs' => $techs,
+        ]);
     }
 
     public function about()
     {
-        // If an about page exists under resources/views/web/pages/about.blade.php
         if (view()->exists('web.pages.about')) {
             return view('web.pages.about');
         }
@@ -46,7 +58,7 @@ class HomeController extends Controller
             return view('web.pages.contact');
         }
 
-        // If no dedicated contact page, fallback to home anchor
         return redirect()->route('front.home', []);
     }
 }
+

@@ -20,8 +20,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
             PermissionSeeder::class,
-             
-
+            ExperienceSeeder::class,
+            PortfolioSeeder::class,
+            SkillSeeder::class,
+            TechSeeder::class,
         ]);
      
         Admin::create([
