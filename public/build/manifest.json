@@ -1,0 +1,32 @@
+{
+  "resources/css/portfolio.css": {
+    "file": "assets/portfolio-jXdu19IT.css",
+    "src": "resources/css/portfolio.css",
+    "isEntry": true,
+    "name": "portfolio",
+    "names": [
+      "portfolio.css"
+    ]
+  },
+  "resources/css/web.css": {
+    "file": "assets/web-JABRs-sL.css",
+    "src": "resources/css/web.css",
+    "isEntry": true,
+    "name": "web",
+    "names": [
+      "web.css"
+    ]
+  },
+  "resources/js/portfolio/app.ts": {
+    "file": "assets/app-C3Sftutp.js",
+    "name": "app",
+    "src": "resources/js/portfolio/app.ts",
+    "isEntry": true
+  },
+  "resources/js/web.jsx": {
+    "file": "assets/web-D8UTLzcF.js",
+    "name": "web",
+    "src": "resources/js/web.jsx",
+    "isEntry": true
+  }
+}
