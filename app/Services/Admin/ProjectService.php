@@ -36,7 +36,7 @@ class ProjectService extends BaseService
                 return Str::limit(strip_tags($obj->description), 50);
             })
             ->editColumn('url', function ($obj) {
-                return '<a href="' . $obj->url . '" target="_blank" class="btn btn-sm btn-primary">' . trns("Visit") . '</a>';
+                return $this->renderProjectLinks($obj);
             })
                 ->addColumn('action', function ($obj) {
                     $user = Auth::guard('admin')->user();
@@ -89,6 +89,8 @@ class ProjectService extends BaseService
 
     public function store($data)
     {
+        $data = $this->normalizeLinkData($data);
+
         if (isset($data['image'])) {
             $data['image'] = $this->handleFile($data['image'], 'Project');
         }
@@ -130,6 +132,7 @@ class ProjectService extends BaseService
     public function update($data, $id)
     {
         $oldObj = $this->getById($id);
+        $data = $this->normalizeLinkData($data);
 
         if (isset($data['image'])) {
             $data['image'] = $this->handleFile($data['image'], 'Project');
@@ -148,5 +151,76 @@ class ProjectService extends BaseService
         } catch (\Exception $e) {
             return redirect()->back()->with(['error' => trns('An error occurred.') . ' ' . $e->getMessage()])->withInput();
         }
+    }
+
+    public function getDataTable(): mixed
+    {
+        return $this->model->orderBy('sort_order', 'asc')->get();
+    }
+
+    public function updateOrder($request)
+    {
+        try {
+            // Case 1: Single project custom sort_order update
+            if ($request->has('id') && $request->has('sort_order')) {
+                $id = $request->input('id');
+                $sortOrder = $request->input('sort_order');
+                $this->model->where('id', $id)->update(['sort_order' => $sortOrder]);
+                return response()->json(['status' => 200, 'message' => trns('updated_successfully')]);
+            }
+
+            // Case 2: Sequential bulk reordering (from drag and drop)
+            $ids = $request->input('ids');
+            if (is_array($ids) && count($ids)) {
+                foreach ($ids as $index => $id) {
+                    $this->model->where('id', $id)->update(['sort_order' => $index + 1]);
+                }
+                return response()->json(['status' => 200, 'message' => trns('updated_successfully')]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['status' => 500, 'message' => trns('something_went_wrong')]);
+        }
+        return response()->json(['status' => 400, 'message' => trns('invalid_data')]);
+    }
+
+    protected function normalizeLinkData(array $data): array
+    {
+        $projectType = $data['project_type'] ?? 'website';
+        $websiteUrl = $data['website_url'] ?? $data['url'] ?? null;
+        $googlePlayUrl = $data['google_play_url'] ?? null;
+        $appStoreUrl = $data['app_store_url'] ?? null;
+
+        $data['project_type'] = $projectType;
+        $data['website_url'] = $websiteUrl;
+        $data['google_play_url'] = $googlePlayUrl;
+        $data['app_store_url'] = $appStoreUrl;
+        $data['url'] = $projectType === 'mobile_app'
+            ? ($googlePlayUrl ?: $appStoreUrl ?: $websiteUrl)
+            : $websiteUrl;
+
+        return $data;
+    }
+
+    protected function renderProjectLinks($obj): string
+    {
+        $links = [];
+
+        if ($obj->website_url ?: $obj->url) {
+            $links[] = '<a href="' . e($obj->website_url ?: $obj->url) . '" target="_blank" class="btn btn-sm btn-primary">' . trns('Website') . '</a>';
+        }
+
+        if ($obj->google_play_url) {
+            $links[] = '<a href="' . e($obj->google_play_url) . '" target="_blank" class="btn btn-sm btn-success">' . trns('Google Play') . '</a>';
+        }
+
+        if ($obj->app_store_url) {
+            $links[] = '<a href="' . e($obj->app_store_url) . '" target="_blank" class="btn btn-sm btn-dark">' . trns('App Store') . '</a>';
+        }
+
+        if (empty($links)) {
+            return '<span class="text-muted">-</span>';
+        }
+
+        return '<div class="d-flex flex-wrap gap-1">' . implode('', $links) . '</div>';
     }
 }

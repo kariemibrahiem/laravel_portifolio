@@ -10,8 +10,23 @@ class Portfolio extends Model
         'title',
         'description',
         'url',
+        'project_type',
+        'website_url',
+        'google_play_url',
+        'app_store_url',
         'image',
         'category',
         'sort_order',
+        'partner_id',
     ];
+
+    public function partner()
+    {
+        return $this->belongsTo(Partner::class);
+    }
+
+    public function collaborators()
+    {
+        return $this->belongsToMany(Collaborator::class, 'collaborator_project', 'project_id', 'collaborator_id');
+    }
 }
