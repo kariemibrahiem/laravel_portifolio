@@ -110,6 +110,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             ->name('Backprojects.updateColumnSelected');
         Route::post('/Backprojects/destroySelected', [\App\Http\Controllers\Admin\ProjectController::class, 'destroySelected'])
             ->name('Backprojects.destroySelected');
+        Route::post('/Backprojects/updateOrder', [\App\Http\Controllers\Admin\ProjectController::class, 'updateOrder'])
+            ->name('Backprojects.updateOrder');
 
 
         Route::resource('settings', \App\Http\Controllers\Admin\SettingController::class);

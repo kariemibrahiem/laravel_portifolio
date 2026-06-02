@@ -1162,6 +1162,17 @@ section[id] {
   font-size: 0.94rem;
 }
 
+.project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.project-actions.compact {
+  gap: 14px;
+}
+
 .project-link {
   color: var(--lime);
 }

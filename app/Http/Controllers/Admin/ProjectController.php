@@ -60,4 +60,9 @@ class ProjectController extends Controller
     public function destroySelected(Request $request){
         return $this->objService->deleteSelected($request);
     }
+
+    public function updateOrder(Request $request)
+    {
+        return $this->objService->updateOrder($request);
+    }
 }

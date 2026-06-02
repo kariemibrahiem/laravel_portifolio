@@ -11,99 +11,61 @@
 
 
 <style>
-    select[name="usersTable_length"] {
-        margin-top: 10px;
-        margin-bottom: 10px;
+    /* Table specific overrides */
+    #usersTable tbody tr {
+        cursor: grab;
     }
-    input[type="search"]{
-        margin-top: 10px;
-        margin-bottom: 10px;
+    #usersTable tbody tr:active {
+        cursor: grabbing;
     }
-
-
-    /* Container for DataTables search */
-.dataTables_filter {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 1rem;
-}
-
-/* Style the label text "Search:" */
-.dataTables_filter label {
-  font-weight: 500;
-  color: #888;
-  font-size: 14px;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* Style the search input */
-.dataTables_filter input[type="search"] {
-  font-family: inherit;
-  font-size: 14px;
-  padding: 6px 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  transition: all 0.3s ease;
-}
-
-/* Hover effect */
-.dataTables_filter input[type="search"]:hover {
-  border-color: #999;
-}
-
-/* Focus effect */
-.dataTables_filter input[type="search"]:focus {
-  border-color: #38caef;
-  box-shadow: 0 0 5px rgba(56, 202, 239, 0.4);
-  outline: none;
-}
-
-    
 </style>
 
-<hr class="my-5" />
+<hr class="my-4" />
 
 <!-- Card -->
-<div class="card">
-  <h5 class="card-header d-flex justify-content-between align-items-center flex-wrap">
-    <div class="d-flex align-items-center mb-2 mb-md-0">
-      <span class="me-3 fw-bold">{{ trns($route) }}</span>
-      <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+<div class="card shadow-lg border-0">
+  <h5 class="card-header d-flex justify-content-between align-items-center flex-wrap gap-3">
+    <div class="d-flex align-items-center gap-3">
+      <span class="fs-4 fw-bold text-white"><i class="fas fa-project-diagram text-primary me-2"></i>{{ trns($route) }}</span>
+      <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center d-none d-sm-flex">
         <li class="avatar avatar-xs pull-up me-1">
-          <img src="{{ asset('assets/img/avatars/5.png') }}" class="rounded-circle">
+          <img src="{{ asset('assets/img/avatars/5.png') }}" class="rounded-circle" style="width:28px; height:28px;">
         </li>
         <li class="avatar avatar-xs pull-up me-1">
-          <img src="{{ asset('assets/img/avatars/6.png') }}" class="rounded-circle">
+          <img src="{{ asset('assets/img/avatars/6.png') }}" class="rounded-circle" style="width:28px; height:28px;">
         </li>
         <li class="avatar avatar-xs pull-up me-1">
-          <img src="{{ asset('assets/img/avatars/7.png') }}" class="rounded-circle">
+          <img src="{{ asset('assets/img/avatars/7.png') }}" class="rounded-circle" style="width:28px; height:28px;">
         </li>
       </ul>
     </div>
-    <div>
-      <button class="btn btn-success" id="bulkStatusUpdate">{{trns("Update_Selected")}}</button>
-      <button class="btn btn-danger" id="deleteSelected">{{ trns("Delete_Selected") }}</button>
-      <a href="{{ route($route . '.create') }}" class="btn btn-primary">{{ trns('Add_New') }} {{ $route }}</a>
+    <div class="d-flex gap-2 align-items-center flex-wrap">
+      <button class="btn btn-success d-flex align-items-center gap-2" id="bulkStatusUpdate">
+        <i class="fas fa-check-double"></i> {{trns("Update_Selected")}}
+      </button>
+      <button class="btn btn-danger d-flex align-items-center gap-2" id="deleteSelected">
+        <i class="fas fa-trash-alt"></i> {{ trns("Delete_Selected") }}
+      </button>
+      <a href="{{ route($route . '.create') }}" class="btn btn-primary d-flex align-items-center gap-2">
+        <i class="fas fa-plus"></i> {{ trns('Add_New') }} {{ $route }}
+      </a>
     </div>
   </h5>
    <!-- Delete Selected Modal -->
     <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ trns('confirm_deletion') }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title d-flex align-items-center gap-2 text-danger">
+                      <i class="fas fa-exclamation-triangle"></i> {{ trns('confirm_deletion') }}
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <p>{{ trns('are_you_sure_you_want_to_delete_selected_items') }}</p>
+                <div class="modal-body py-4">
+                    <p class="mb-0 fs-5 text-white-50">{{ trns('are_you_sure_you_want_to_delete_selected_items') }}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ trns('cancel') }}</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ trns('cancel') }}</button>
                     <button type="button" class="btn btn-danger" id="confirm-delete-btn">{{ trns('delete') }}</button>
                 </div>
             </div>
@@ -112,9 +74,10 @@
 
   <div class="card-body">
     <div class="table-responsive text-nowrap">
-      <table class="table table-bordered" id="usersTable">
+      <table class="table" id="usersTable">
         <thead>
           <tr>
+            <th style="width: 40px;"></th>
             <th><input type="checkbox" id="select-all"></th>
             <th>{{ trns('title') }}</th>
             <th>{{ trns('description') }}</th>
@@ -134,16 +97,8 @@
 @endsection
 
 @push('scripts')
-<!-- DataTables CSS/JS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-
-<!-- Toastr -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<!-- Bootstrap 5 JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- jQuery UI Sortable for Drag and Drop -->
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 
 <script>
 $(document).ready(function () {
@@ -152,7 +107,16 @@ $(document).ready(function () {
         serverSide: true,
         ajax: '{{ route($route . ".index") }}',
         columns: [
-        {
+            {
+                data: null,
+                orderable: false,
+                searchable: false,
+                className: 'drag-handle-cell text-center',
+                render: function() {
+                    return `<span class="drag-handle"><i class="fas fa-grip-vertical"></i></span>`;
+                }
+            },
+            {
                 data: 'id',
                 orderable: false,
                 searchable: false,
@@ -165,12 +129,22 @@ $(document).ready(function () {
             { data: 'url', name: 'url' },
             { data: 'image', name: 'image' },
             { data: 'category', name: 'category' },
-            { data: 'sort_order', name: 'sort_order' },
+            { 
+                data: 'sort_order', 
+                name: 'sort_order',
+                render: function(data, type, row) {
+                    return `<input type="number" 
+                                   class="form-control text-center sort-order-input" 
+                                   value="${data}" 
+                                   data-id="${row.id}" 
+                                   style="width: 80px; margin: 0 auto; background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.1); color: #fff; border-radius: 8px; padding: 4px 8px; font-weight: 600; transition: all 0.25s ease-in-out;">`;
+                }
+            },
             { data: 'partner_id', name: 'partner_id' },
             { data: 'action', name: 'action', orderable: false, searchable: false }
         ],
 
-        order: [[1, "DESC"]],
+        order: [[7, "asc"]],
         language: {
             sZeroRecords: "No records found",
             sProcessing: "Processing...",
@@ -180,6 +154,121 @@ $(document).ready(function () {
                 sNext: "Next"
             }
         }
+    });
+
+    // Initialize drag-and-drop sortable
+    $('#usersTable tbody').sortable({
+        axis: 'y',
+        handle: '.drag-handle', // Drag action triggered only from grip handle
+        opacity: 0.85,
+        cancel: 'input,textarea,button,select,option,a,.row-checkbox,.btn',
+        helper: function(e, tr) {
+            var $originals = tr.children();
+            var $helper = tr.clone();
+            $helper.children().each(function(index) {
+                $(this).width($originals.eq(index).width());
+            });
+            return $helper;
+        },
+        update: function (event, ui) {
+            // 1. Recalculate SORT ORDER values in the UI instantly after drop
+            $('#usersTable tbody tr').each(function (index) {
+                const newOrder = index + 1;
+                const $cell = $(this).find('td').eq(7); // index 7 is sort_order now
+                
+                // Apply value and pulse animation to highlight change
+                $cell.text(newOrder);
+                $cell.removeClass('order-updated-pulse');
+                void $cell[0].offsetWidth; // trigger reflow
+                $cell.addClass('order-updated-pulse');
+            });
+
+            // 2. Get list of sorted IDs
+            const ids = [];
+            $('#usersTable tbody .row-checkbox').each(function () {
+                ids.push($(this).val());
+            });
+
+            if (ids.length === 0) return;
+
+            // 3. Send AJAX request to update the database asynchronously
+            $.ajax({
+                type: 'POST',
+                url: '{{ route($route . ".updateOrder") }}',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    ids: ids
+                },
+                success: function (response) {
+                    if (response.status === 200) {
+                        toastr.success("{{ trns('Updated Successfully') }}");
+                        // 4. Reload DataTables in the background to ensure data state integrity without disrupting view
+                        table.ajax.reload(null, false);
+                    } else {
+                        toastr.error("{{ trns('something_went_wrong') }}");
+                    }
+                },
+                error: function () {
+                    toastr.error("{{ trns('something_went_wrong') }}");
+                }
+            });
+        }
+    });
+
+    // Cache original value on focus to prevent redundant requests
+    let originalSortOrder = null;
+    $('#usersTable tbody').on('focus', '.sort-order-input', function () {
+        originalSortOrder = $(this).val();
+    });
+
+    // Handle inline SORT ORDER input updates immediately on blur (unfocus)
+    $('#usersTable tbody').on('blur', '.sort-order-input', function () {
+        const id = $(this).attr('data-id');
+        const sortOrder = $(this).val();
+        const $input = $(this);
+
+        // If the value has not changed, don't send a request
+        if (originalSortOrder !== null && originalSortOrder === sortOrder) {
+            return;
+        }
+
+        console.log("Inline sort order update triggered on blur (unfocus):", { id: id, sort_order: sortOrder });
+
+        if (!id || sortOrder === '') {
+            console.warn("Update aborted: Missing ID or sort order value.", { id: id, sortOrder: sortOrder });
+            return;
+        }
+
+        // Visual loading feedback (glow border color transitions)
+        $input.css('border-color', '#ffc107'); // yellow during update
+
+        $.ajax({
+            type: 'POST',
+            url: '{{ route($route . ".updateOrder") }}',
+            data: {
+                _token: '{{ csrf_token() }}',
+                id: id,
+                sort_order: sortOrder
+            },
+            success: function (response) {
+                if (response.status === 200) {
+                    toastr.success("{{ trns('Updated Successfully') }}");
+                    $input.css('border-color', '#10b981'); // green for success
+                    setTimeout(function() {
+                        $input.css('border-color', 'rgba(255,255,255,0.1)'); // restore original
+                    }, 1500);
+                    // Reload DataTables in the background to ensure data state integrity
+                    table.ajax.reload(null, false);
+                } else {
+                    toastr.error("{{ trns('something_went_wrong') }}");
+                    $input.css('border-color', '#ef4444'); // red for error
+                }
+            },
+            error: function () {
+                toastr.error("{{ trns('something_went_wrong') }}");
+                $input.css('border-color', '#ef4444');
+            }
+        });
     });
 
     $('#select-all').on('click', function () {

@@ -49,7 +49,6 @@
   <!-- Include Scripts for customizer, helper, analytics, config -->
   @include('layouts/sections/scriptsIncludes')
 </head>
-@stack('scripts') <!-- أضف هذا السطر هنا! -->
 
 <body>
   
@@ -84,6 +83,8 @@
     });
 </script>
 @endpush
+
+@stack('scripts')
 
 </body>
 

@@ -79,7 +79,11 @@ export interface ProjectItem {
   description: string;
   shortDescription: string;
   imageUrl: string | null;
+  projectType: string;
   externalUrl: string | null;
+  websiteUrl: string | null;
+  googlePlayUrl: string | null;
+  appStoreUrl: string | null;
   featured: boolean;
   sortOrder: number;
   badges: string[];

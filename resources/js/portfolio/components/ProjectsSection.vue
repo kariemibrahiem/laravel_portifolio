@@ -53,15 +53,38 @@ defineProps<{
                 Team: {{ project.collaborators.map((item) => item.name).join(", ") }}
               </span>
             </div>
-            <a
-              v-if="project.externalUrl"
-              class="btn btn-ghost"
-              :href="project.externalUrl"
-              target="_blank"
-              rel="noopener noreferrer"
+            <div
+              v-if="project.websiteUrl || project.googlePlayUrl || project.appStoreUrl"
+              class="project-actions"
             >
-              Visit Project
-            </a>
+              <a
+                v-if="project.websiteUrl"
+                class="btn btn-ghost"
+                :href="project.websiteUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Visit Website
+              </a>
+              <a
+                v-if="project.googlePlayUrl"
+                class="btn btn-ghost"
+                :href="project.googlePlayUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Google Play
+              </a>
+              <a
+                v-if="project.appStoreUrl"
+                class="btn btn-ghost"
+                :href="project.appStoreUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                App Store
+              </a>
+            </div>
           </div>
         </article>
       </div>
@@ -91,15 +114,38 @@ defineProps<{
             </div>
             <h3>{{ project.title }}</h3>
             <p>{{ project.shortDescription }}</p>
-            <a
-              v-if="project.externalUrl"
-              class="project-link"
-              :href="project.externalUrl"
-              target="_blank"
-              rel="noopener noreferrer"
+            <div
+              v-if="project.websiteUrl || project.googlePlayUrl || project.appStoreUrl"
+              class="project-actions compact"
             >
-              Open demo
-            </a>
+              <a
+                v-if="project.websiteUrl"
+                class="project-link"
+                :href="project.websiteUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Website
+              </a>
+              <a
+                v-if="project.googlePlayUrl"
+                class="project-link"
+                :href="project.googlePlayUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Google Play
+              </a>
+              <a
+                v-if="project.appStoreUrl"
+                class="project-link"
+                :href="project.appStoreUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                App Store
+              </a>
+            </div>
           </div>
         </article>
       </div>

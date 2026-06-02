@@ -21,13 +21,7 @@ class Admin extends Authenticatable
 
     protected $guard_name = 'admin';
 
-    // تشفير الباسورد تلقائي عند التحديث
-    public function setPasswordAttribute($value)
-    {
-        if ($value) {
-            $this->attributes['password'] = bcrypt($value);
-        }
-    }
+
 
     protected $casts = [
         'email_verified_at' => 'datetime',
