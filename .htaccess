@@ -1,2 +1,17 @@
-RewriteEngine On
-RewriteRule ^(.*)$ public/$1 [L]
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # redirect all to public
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# force PHP 8.3 (Hostinger / CloudLinux)
+<IfModule mime_module>
+    AddHandler application/x-httpd-ea-php83 .php .php8 .phtml
+</IfModule>
+
+# لو LiteSpeed استخدم ده بدل اللي فوق
+<IfModule lsapi_module>
+    SetHandler application/x-httpd-ea-php83
+</IfModule>
