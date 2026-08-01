@@ -159,14 +159,22 @@ class PortfolioPayloadBuilder
                     'websiteUrl' => $project->website_url ?: $project->url,
                     'googlePlayUrl' => $project->google_play_url,
                     'appStoreUrl' => $project->app_store_url,
-                    'featured' => $index < 2,
+                    'featured' => $index < 8 || in_array($project->title, [
+                        'Mostasharak – Legal Services Platform',
+                        'Efada Center – Early Childhood Education Platform',
+                    ], true),
                     'sortOrder' => $project->sort_order,
-                    'badges' => array_values(array_filter([
-                        strtoupper((string) $project->category),
-                        $project->project_type === 'mobile_app' ? 'MOBILE APP' : 'WEBSITE',
+                    'badges' => array_values(array_unique(array_filter([
+                        ...array_map('trim', explode(',', strtoupper((string) $project->category))),
                         $project->partner?->name,
-                        $project->collaborators->count() ? $project->collaborators->count() . ' collaborators' : null,
-                    ])),
+                        $project->collaborators->count() ? $project->collaborators->count().' collaborators' : null,
+                    ]))),
+                    'websiteLabel' => match ($project->title) {
+                        'Clinizone – Multi-Vendor Medical Platform' => 'Live System',
+                        'Elkory' => 'Live Website',
+                        default => 'Website',
+                    },
+                    'customLinks' => $project->custom_links ?? [],
                     'partner' => $project->partner ? [
                         'id' => $project->partner->id,
                         'name' => $project->partner->name,
@@ -209,7 +217,7 @@ class PortfolioPayloadBuilder
                 'availability' => $settings['contact_availability'] ?? 'Available for freelance backend projects and production support.',
                 'primaryCta' => [
                     'label' => 'Start a Conversation',
-                    'href' => 'mailto:' . ($settings['contact_email'] ?? 'kariemibrahiem110@gmail.com'),
+                    'href' => 'mailto:'.($settings['contact_email'] ?? 'kariemibrahiem110@gmail.com'),
                 ],
             ],
             'socials' => [
@@ -227,7 +235,7 @@ class PortfolioPayloadBuilder
                 ],
                 [
                     'label' => 'Email',
-                    'url' => 'mailto:' . ($settings['contact_email'] ?? 'kariemibrahiem110@gmail.com'),
+                    'url' => 'mailto:'.($settings['contact_email'] ?? 'kariemibrahiem110@gmail.com'),
                     'meta' => $settings['contact_email'] ?? 'kariemibrahiem110@gmail.com',
                     'abbr' => 'EM',
                 ],
@@ -237,11 +245,11 @@ class PortfolioPayloadBuilder
 
     protected function loadSettings(): array
     {
-        if (!Schema::hasTable('settings')) {
+        if (! Schema::hasTable('settings')) {
             return [];
         }
 
-        if (!Schema::hasColumns('settings', ['key', 'value'])) {
+        if (! Schema::hasColumns('settings', ['key', 'value'])) {
             return [];
         }
 
@@ -267,7 +275,7 @@ class PortfolioPayloadBuilder
 
     protected function extractYear(?string $value): ?int
     {
-        if (!$value) {
+        if (! $value) {
             return null;
         }
 
@@ -284,7 +292,7 @@ class PortfolioPayloadBuilder
 
     protected function assetUrl(?string $path): ?string
     {
-        if (!$path) {
+        if (! $path) {
             return null;
         }
 
@@ -303,6 +311,6 @@ class PortfolioPayloadBuilder
             return $text;
         }
 
-        return rtrim(mb_substr($text, 0, $length - 1)) . '…';
+        return rtrim(mb_substr($text, 0, $length - 1)).'…';
     }
 }

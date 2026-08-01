@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title description">
+  <title id="title">KTech</title>
+  <desc id="description">Neutral placeholder pending a real project screenshot.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b1a25"/><stop offset="1" stop-color="#071016"/></linearGradient></defs>
+  <rect width="1200" height="675" fill="url(#bg)"/><path d="M0 530 320 340l220 130 210-230 450 290v145H0z" fill="#4d8dff" opacity=".08"/>
+  <rect x="94" y="84" width="1012" height="507" rx="28" fill="none" stroke="#8ea3b7" stroke-opacity=".22" stroke-width="2"/>
+  <circle cx="145" cy="132" r="8" fill="#ccff17"/><text x="178" y="143" fill="#8ea3b7" font-family="Arial,sans-serif" font-size="28" letter-spacing="5">PROJECT PREVIEW</text>
+  <text x="600" y="338" fill="#eef4f8" font-family="Arial,sans-serif" font-size="64" font-weight="700" text-anchor="middle">KTech</text>
+  <text x="600" y="392" fill="#8ea3b7" font-family="Arial,sans-serif" font-size="25" text-anchor="middle">Screenshot coming soon</text>
+</svg>

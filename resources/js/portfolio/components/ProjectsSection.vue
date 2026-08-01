@@ -54,7 +54,7 @@ defineProps<{
               </span>
             </div>
             <div
-              v-if="project.websiteUrl || project.googlePlayUrl || project.appStoreUrl"
+              v-if="project.websiteUrl || project.googlePlayUrl || project.appStoreUrl || project.customLinks.length"
               class="project-actions"
             >
               <a
@@ -64,7 +64,7 @@ defineProps<{
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Visit Website
+                {{ project.websiteLabel || "Visit Website" }}
               </a>
               <a
                 v-if="project.googlePlayUrl"
@@ -83,6 +83,16 @@ defineProps<{
                 rel="noopener noreferrer"
               >
                 App Store
+              </a>
+              <a
+                v-for="link in project.customLinks"
+                :key="link.url"
+                class="btn btn-ghost"
+                :href="link.url"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {{ link.label }}
               </a>
             </div>
           </div>
@@ -115,7 +125,7 @@ defineProps<{
             <h3>{{ project.title }}</h3>
             <p>{{ project.shortDescription }}</p>
             <div
-              v-if="project.websiteUrl || project.googlePlayUrl || project.appStoreUrl"
+              v-if="project.websiteUrl || project.googlePlayUrl || project.appStoreUrl || project.customLinks.length"
               class="project-actions compact"
             >
               <a
@@ -125,7 +135,7 @@ defineProps<{
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Website
+                {{ project.websiteLabel || "Website" }}
               </a>
               <a
                 v-if="project.googlePlayUrl"
@@ -144,6 +154,16 @@ defineProps<{
                 rel="noopener noreferrer"
               >
                 App Store
+              </a>
+              <a
+                v-for="link in project.customLinks"
+                :key="link.url"
+                class="project-link"
+                :href="link.url"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {{ link.label }}
               </a>
             </div>
           </div>

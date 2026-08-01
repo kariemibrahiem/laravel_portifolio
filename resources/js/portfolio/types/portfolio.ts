@@ -82,6 +82,8 @@ export interface ProjectItem {
   projectType: string;
   externalUrl: string | null;
   websiteUrl: string | null;
+  websiteLabel: string | null;
+  customLinks: Array<{ label: string; url: string }>;
   googlePlayUrl: string | null;
   appStoreUrl: string | null;
   featured: boolean;

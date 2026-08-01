@@ -9,89 +9,39 @@ class PortfolioSeeder extends Seeder
 {
     public function run(): void
     {
-        \Illuminate\Support\Facades\Schema::disableForeignKeyConstraints();
-        Portfolio::truncate();
-        \Illuminate\Support\Facades\Schema::enableForeignKeyConstraints();
+        $projects = [
+            ['aliases' => ['Travel'], 'title' => 'Travel Management System', 'description' => 'A complete travel management platform connecting hotels, restaurants, transportation providers, and entertainment services through unified booking and operational workflows.', 'url' => 'https://trvlgate.com/en', 'project_type' => 'mobile_app', 'website_url' => 'https://trvlgate.com/en', 'google_play_url' => 'https://play.google.com/store/apps/details?id=com.topbusiness.travelclub', 'app_store_url' => 'https://apps.apple.com/eg/app/travel-club/id6744456400', 'image' => 'web/img/projects/travel.png', 'category' => 'Travel, Multi-Vendor, Mobile App'],
+            ['aliases' => ['Edarat', 'Edrat'], 'title' => 'Edrat365 Real Estate Management System', 'description' => 'A complete compound and property management platform covering compounds, buildings, units, owners, parking spaces, utility meters, and ownership operations.', 'url' => 'https://demo.edarat365.com/admin/login', 'project_type' => 'website', 'website_url' => 'https://demo.edarat365.com/admin/login', 'image' => 'web/img/projects/edarat.png', 'category' => 'Real Estate, Property Management, Website'],
+            ['aliases' => ['Clinizone CRM', 'Clinizone'], 'title' => 'Clinizone – Multi-Vendor Medical Platform', 'description' => 'A medical operations and lead-management platform integrated with Odoo for managing leads, medical vendors, services, records, and operational workflows.', 'url' => 'https://crm.clinizone.net/dashboard/login', 'project_type' => 'website', 'website_url' => 'https://crm.clinizone.net/dashboard/login', 'image' => 'web/img/projects/clinizone.png', 'category' => 'Healthcare, CRM, Odoo, Website'],
+            ['aliases' => ['Hub Spare Part', 'HubSparePart'], 'title' => 'HubSparePart ERP & eCommerce Platform', 'description' => 'A full HMVC-based ERP and eCommerce platform for automotive spare parts, combining inventory, product, order, payment, vendor, and user-management operations.', 'url' => 'https://hubspareparts.com', 'project_type' => 'website', 'website_url' => 'https://hubspareparts.com', 'image' => 'web/img/projects/hubsparepart.png', 'category' => 'ERP, eCommerce, Website'],
+            ['aliases' => [], 'title' => 'KTech', 'description' => 'An eCommerce platform integrated with Odoo ERP, a Flutter mobile application, and an AI agent system to automate business workflows and improve operational efficiency.', 'project_type' => 'mobile_app', 'image' => 'web/img/projects/ktech.svg', 'category' => 'eCommerce, Odoo, Flutter, AI'],
+            ['aliases' => ['Zakat'], 'title' => 'Zakat Platform', 'description' => 'A financial management platform for a zakat association, covering financial transactions, zakat operations, standard loans, and rotating association-based financing workflows.', 'url' => 'https://zakat.topbusiness.io/admin', 'project_type' => 'website', 'website_url' => 'https://zakat.topbusiness.io/admin', 'image' => 'web/img/projects/zakar.png', 'category' => 'Finance, Charity, Website'],
+            ['aliases' => [], 'title' => 'Emtithal', 'description' => 'A platform for Saudi Hajj operations that manages pilgrims, accommodation, and luggage logistics, helping luggage reach assigned accommodation before pilgrims arrive.', 'project_type' => 'website', 'image' => 'web/img/projects/emtithal.svg', 'category' => 'Hajj Operations, Logistics, Saudi Arabia'],
+            ['aliases' => ['Atabe', 'Ataaby'], 'title' => 'At3aby – Legal Services Platform', 'description' => 'A complete legal-services platform managing relationships between lawyers and clients, including cases, submissions, assignments, communication, and follow-up workflows.', 'url' => 'https://atabe.com', 'project_type' => 'mobile_app', 'website_url' => 'https://atabe.com', 'google_play_url' => 'https://play.google.com/store/apps/details?id=com.topbusiness.ataaby', 'app_store_url' => 'https://apps.apple.com/eg/app/ataaby/id6744648039', 'image' => 'web/img/projects/atabe.png', 'category' => 'Legal, Case Management, Mobile App'],
+            ['aliases' => ['Mostasharak', 'مستشارك'], 'title' => 'Mostasharak – Legal Services Platform', 'description' => 'A legal-services platform designed to connect lawyers and clients and support legal consultations, case-related communication, and service-management workflows.', 'project_type' => 'mobile_app', 'app_store_url' => 'https://apps.apple.com/eg/app/%D9%85%D8%B3%D8%AA%D8%B4%D8%A7%D8%B1%D9%83/id6756870723', 'image' => 'web/img/projects/mostasharak.svg', 'category' => 'Legal, Case Management, Mobile App'],
+            ['aliases' => ['Elmazon', 'El Maazon'], 'title' => 'El-Maazon LMS System', 'description' => 'A complete learning-management platform integrated with a mobile application and a separate teacher platform for managing courses, users, payments, and educational operations.', 'url' => 'https://elmazon.com', 'project_type' => 'mobile_app', 'website_url' => 'https://elmazon.com', 'google_play_url' => 'https://play.google.com/store/apps/details?id=com.topbusiness.new_mazoon', 'image' => 'web/img/projects/elmazon.png', 'category' => 'Education, LMS, Mobile App'],
+            ['aliases' => ['Efada', 'إفادة'], 'title' => 'Efada Center – Early Childhood Education Platform', 'description' => 'An educational platform focused on early-childhood learning, child development, structured child assessment, and support for inclusive education and children with additional learning needs.', 'url' => 'https://efadacenter.com/', 'project_type' => 'mobile_app', 'website_url' => 'https://efadacenter.com/', 'app_store_url' => 'https://apps.apple.com/eg/app/efada-center/id1661616719', 'image' => 'web/img/projects/efada-center.svg', 'category' => 'Education, Early Childhood, Child Assessment, Mobile App'],
+            ['aliases' => ['Soha Sabor', 'دكتور بيولوجي'], 'title' => 'Soha Sabor – Biology Education Platform', 'description' => 'An educational mobile platform focused on biology learning, digital educational content, and student learning workflows.', 'project_type' => 'mobile_app', 'app_store_url' => 'https://apps.apple.com/eg/app/soha-sabor-%D8%AF%D9%83%D8%AA%D9%88%D8%B1-%D8%A8%D9%8A%D9%88%D9%84%D9%88%D8%AC%D9%8A/id6749260831', 'image' => 'web/img/projects/soha-sabor.svg', 'category' => 'Education, Biology, LMS, Mobile App'],
+            ['aliases' => ['Mawhebtac'], 'title' => 'Mawhebtak – Talent Discovery Platform', 'description' => 'A short-video talent-discovery platform enabling users to showcase creative abilities and connect talent with directors and industry professionals.', 'url' => 'https://mawhebtac.com', 'project_type' => 'mobile_app', 'website_url' => 'https://mawhebtac.com', 'google_play_url' => 'https://play.google.com/store/apps/details?id=com.topbusiness.mawhebtak', 'app_store_url' => 'https://apps.apple.com/eg/app/mawhebtac/id6748575013', 'image' => 'web/img/projects/mawhebtac.png', 'category' => 'Entertainment, Talent, Mobile App'],
+            ['aliases' => [], 'title' => 'Salonatna', 'description' => 'A service-booking platform connecting customers with salons and service providers through separate user and partner applications.', 'project_type' => 'mobile_app', 'custom_links' => [['label' => 'Partner App', 'url' => 'https://apps.apple.com/eg/app/salonatna-partner/id6746445407'], ['label' => 'User App', 'url' => 'https://apps.apple.com/eg/app/salonatna-user/id6746126544']], 'image' => 'web/img/projects/salonatna.svg', 'category' => 'Booking, Beauty Services, Marketplace, Mobile App'],
+            ['aliases' => [], 'title' => 'El-Bahgy LMS', 'description' => 'An educational learning-management platform supporting teachers, students, courses, content, assessments, and administrative workflows.', 'project_type' => 'website', 'image' => 'web/img/projects/el-bahgy.svg', 'category' => 'Education, LMS'],
+            ['aliases' => [], 'title' => 'El-Dagiwy LMS', 'description' => 'A learning-management platform for managing educational content, courses, students, teachers, and platform administration.', 'project_type' => 'website', 'image' => 'web/img/projects/el-dagiwy.svg', 'category' => 'Education, LMS'],
+            ['aliases' => [], 'title' => 'Hefny LMS', 'description' => 'An LMS platform designed to manage courses, students, teachers, learning content, and educational workflows.', 'project_type' => 'website', 'image' => 'web/img/projects/hefny.svg', 'category' => 'Education, LMS'],
+            ['aliases' => ['ESOIEgypt', 'ESOI'], 'title' => 'ESOI Egypt', 'description' => 'An educational platform built on Rocket LMS that provides online courses, learning resources, and tools for students and educators in Egypt.', 'url' => 'https://esoiegypt.cloud/', 'project_type' => 'website', 'website_url' => 'https://esoiegypt.cloud/', 'image' => 'web/img/projects/esoi.png', 'category' => 'Education, LMS, Website'],
+            ['aliases' => ['The Kory'], 'title' => 'Elkory', 'description' => 'A production web platform built around structured business, content, and administrative workflows.', 'url' => 'https://elkory.com/', 'project_type' => 'website', 'website_url' => 'https://elkory.com/', 'image' => 'web/img/projects/elkory.svg', 'category' => 'Website'],
+            ['aliases' => [], 'title' => 'Well7', 'description' => 'A production business platform developed with Laravel and integrated backend workflows.', 'project_type' => 'website', 'image' => 'web/img/projects/well7.svg', 'category' => 'Laravel'],
+            ['aliases' => [], 'title' => 'Saudi Doors', 'description' => 'A Laravel-based business platform supporting administrative operations, structured workflows, and backend services.', 'project_type' => 'website', 'image' => 'web/img/projects/saudi-doors.svg', 'category' => 'Laravel'],
+            ['aliases' => [], 'title' => 'Brainixa', 'description' => 'A production Laravel platform providing API-driven services and administrative workflows.', 'project_type' => 'website', 'image' => 'web/img/projects/brainixa.svg', 'category' => 'Laravel, API'],
+        ];
 
-        Portfolio::create([
-            'title' => 'Edarat',
-            'description' => 'edarat is full realstate management system for pixel mart saudi company full designed and build with laravel .',
-            'url' => 'https://demo.edarat365.com/admin/login',
-            'image' => 'web/img/projects/edarat.png',
-            'category' => 'consulting',
-            'sort_order' => 1,
-        ]);
+        foreach ($projects as $index => $data) {
+            $aliases = array_merge([$data['title']], $data['aliases']);
+            unset($data['aliases']);
 
-        Portfolio::create([
-            'title' => 'Travel',
-            'description' => 'travel  is a travel agency website that provides a wide range of travel services, including  hotel reservations, and tour packages, offering users a convenient platform to all services and book their travel arrangements.',
-            'url' => 'https://trvlgate.com/en',
-            'image' => 'web/img/projects/travel.png',
-            'category' => 'finance',
-            'sort_order' => 2,
-        ]);
+            $project = Portfolio::query()->whereIn('title', $aliases)->orderBy('id')->first();
+            $data['sort_order'] = $index + 1;
 
-        Portfolio::create([
-            'title' => 'Mawhebtac',
-            'description' => 'Mawhebtac is a comprehensive talent acquisition and management platform designed to streamline the recruitment process for businesses. It offers a range of features including talent posting, candidate sourcing, applicant tracking, and analytics to help companies efficiently find and manage top talent.',
-            'url' => 'https://mawhebtac.com',
-            'image' => 'web/img/projects/mawhebtac.png',
-            'category' => 'marketing',
-            'sort_order' => 3,
-        ]);
-
-        Portfolio::create([
-            'title' => 'Elmazon',
-            'description' => 'Elmazon is full LMS system connect teacher with all student and manege the learning process.',
-            'url' => 'https://elmazon.com',
-            'image' => 'web/img/projects/elmazon.png',
-            'category' => 'consulting',
-            'sort_order' => 4,
-        ]);
-
-        Portfolio::create([
-            'title' => 'Clinizone CRM',
-            'description' => 'Clinizone CRM is a customer relationship management system designed specifically for healthcare providers, offering features such as patient management, appointment scheduling, and communication tools to enhance patient care and streamline administrative tasks.',
-            'url' => 'https://crm.clinizone.net/',
-            'image' => 'web/img/projects/clinizone.png',
-            'category' => 'consulting',
-            'sort_order' => 5,
-        ]);
-
-        Portfolio::create([
-            'title' => 'Atabe',
-            'description' => 'Atabe is a platform to provide direct relation between lawyers and customers and handle all court cases steps and processes.',
-            'url' => 'https://atabe.com',
-            'image' => 'web/img/projects/atabe.png',
-            'category' => 'finance',
-            'sort_order' => 6,
-        ]);
-
-        Portfolio::create([
-            'title' => 'Hub Spare Part',
-            'description' => 'Hub Spare Part is an e-commerce platform that specializes in providing a wide range of spare parts for various industries, offering customers a convenient and reliable online shopping experience for their spare part needs.',
-            'url' => 'https://hubsparepart.com',
-            'image' => 'web/img/projects/hubsparepart.png',
-            'category' => 'marketing',
-            'sort_order' => 7,
-        ]);
-
-        Portfolio::create([
-            'title' => 'Zakat',
-            'description' => 'Zakat is a comprehensive zakat management system designed to facilitate the calculation, collection, and distribution of zakat funds in accordance with Islamic principles, providing users with a convenient platform to fulfill their zakat obligations and contribute to charitable causes.',
-            'url' => 'https://zakat.topbusiness.io/admin',
-            'image' => 'web/img/projects/zakar.png',
-            'category' => 'marketing',
-            'sort_order' => 8,
-        ]);
-
-        Portfolio::create([
-            'title' => 'ESOIEgypt',
-            'description' => 'ESOIEgypt is a comprehensive educational platform  build on Rocket LMS system that provides a wide range of online courses, resources, and tools to support students and educators in Egypt, fostering accessible and quality education for all.',
-            'url' => 'https://esoiegypt.cloud/',
-            'image' => 'web/img/projects/esoi.png',
-            'category' => 'finance',
-            'sort_order' => 9,
-        ]);
+            $project ? $project->update($data) : Portfolio::create($data);
+        }
     }
 }
