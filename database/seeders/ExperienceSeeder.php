@@ -12,7 +12,7 @@ class ExperienceSeeder extends Seeder
         Experience::truncate();
 
         Experience::create([
-            'title' => 'junior Back-end laravel developer',
+            'title' => '  Back-end laravel developer',
             'company' => 'Phelera Company',
             'description' => 'As a Back-end Developer at Phelera Company, my first professional role, I was responsible for developing and maintaining dashboards and web applications using the Laravel framework. I collaborated closely with senior developers, gained hands-on experience with best practices, resolved bugs, implemented new features, and consistently delivered assigned tasks within project deadlines.',
             'start_date' => 'Sep 2024',

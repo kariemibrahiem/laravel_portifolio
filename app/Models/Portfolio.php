@@ -14,11 +14,17 @@ class Portfolio extends Model
         'website_url',
         'google_play_url',
         'app_store_url',
+        'custom_links',
         'image',
         'category',
         'sort_order',
         'partner_id',
     ];
+
+    protected function casts(): array
+    {
+        return ['custom_links' => 'array'];
+    }
 
     public function partner()
     {

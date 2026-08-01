@@ -449,7 +449,7 @@ return [
     'As a Back-end Developer at Phelera Company, my first professional role, I was responsible for developing and maintaining dashboards and web applications using the Laravel framework. I collaborated closely with senior developers, gained hands-on experience with best practices, resolved bugs, implemented new features, and consistently delivered assigned tasks within project deadlines.' => 'بصفتي مطورًا خلفيًا في شركة Phelera ، وهو أول دور مهني لي ، كنت مسؤولاً عن تطوير وصيانة لوحات المعلومات وتطبيقات الويب باستخدام إطار عمل Laravel. تعاونت بشكل وثيق مع المطورين الكبار ، واكتسبت خبرة عملية مع أفضل الممارسات ، وحللت الأخطاء ، ونفذت ميزات جديدة ، وقدمًا باستمرار المهام الموكلة ضمن مواعيد المشروع النهائية.',
     'BussReservation' => 'حجز الحافلة',
     'total_price' => 'السعر الإجمالي',
-    'junior Back-end laravel developer' => 'junior Back-end laravel developer',
+    '  Back-end laravel developer' => '  Back-end laravel developer',
     'kariem' => 'كريم',
     'THEMSBIT' => 'المسبت',
     'I am experienced in Laravel frameworks to provide a  high level systems with perfect performance. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition.' => 'أنا متمرس في أطر عمل Laravel لتوفير أنظمة عالية المستوى بأداء مثالي. تعزز النهج التكرارية لاستراتيجية الشركة التفكير التعاوني لتعزيز القيمة الإجمالية.',

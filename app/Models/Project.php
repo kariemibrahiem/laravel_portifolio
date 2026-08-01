@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
-
     protected $table = 'portfolios';
+
     protected $fillable = [
         'title',
         'description',
@@ -16,16 +16,23 @@ class Project extends Model
         'website_url',
         'google_play_url',
         'app_store_url',
+        'custom_links',
         'image',
         'category',
         'sort_order',
-        'partner_id'
+        'partner_id',
     ];
+
+    protected function casts(): array
+    {
+        return ['custom_links' => 'array'];
+    }
 
     public function partner()
     {
         return $this->belongsTo(Partner::class);
     }
+
     public function collaborators()
     {
         return $this->belongsToMany(Collaborator::class, 'collaborator_project', 'project_id', 'collaborator_id');
